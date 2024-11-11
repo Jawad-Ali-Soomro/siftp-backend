@@ -1,7 +1,6 @@
 const express = require("express");
 const { connectDatabase } = require("./_config/connect.db");
 const app = express();
-const serverless = require('serverless-http')
 require("dotenv").config({
   path: "./_config/.env",
 });
@@ -31,5 +30,3 @@ app.get('/', (req,res) => {
 app.listen(process.env.PORT, () => {
   console.log("working at port.");
 });
-
-module.exports.handler = serverless(app);
