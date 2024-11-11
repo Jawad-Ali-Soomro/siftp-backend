@@ -24,6 +24,9 @@ app.post("/send-mail", (req,res) =>{
     })
   }
 });
+app.get('/', (req,res) => {
+  res.end("Hello")
+})
 app.listen(process.env.PORT, () => {
   console.log("working at port.");
 });

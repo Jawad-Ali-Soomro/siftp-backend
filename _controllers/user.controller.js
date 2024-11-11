@@ -19,9 +19,9 @@ const createUser = async (req, res) => {
 
     const secret = speakeasy.generateSecret({ name: "Sindh Institute Of Freelance Training Program" });
 
-    const referenceId = Math.random().toString(36).substr(2, 9);  
+    const referenceId = Math.random().toString(36).substr(2, 9);
 
-    
+
 
     const newUser = await User.create({
       ...req.body,
@@ -33,7 +33,7 @@ const createUser = async (req, res) => {
     if (!newUser) {
       return res.status(300).json({ msg: "Error While Creating User!" });
     }
-   
+
 
     const qrCodeUrl = await qrcode.toDataURL(secret.otpauth_url);
 
@@ -41,7 +41,7 @@ const createUser = async (req, res) => {
       newUser,
       msg: "User Created Successfully! Scan the QR code with an authenticator app to enable 2FA.",
       qrCodeUrl,
-      referenceId: newUser.referenceId, 
+      referenceId: newUser.referenceId,
     });
   } catch (error) {
     return res.status(500).json({ msg: "Error During Process. Please Try Again!" });
@@ -124,8 +124,24 @@ const verify2FA = async (req, res) => {
   }
 };
 
+const getProfile = async (req, res) => {
+  const { userId } = req.params
+  const findUser = await User.findById(userId).populate("enrolledCourses")
+  if (!findUser) {
+    return res.json({
+      msg: "Error finding User"
+    })
+  } else {
+    return res.json({
+      msg: "found User",
+      findUser
+    })
+  }
+}
+
 module.exports = {
   createUser,
   loginUser,
   verify2FA,
+  getProfile
 };

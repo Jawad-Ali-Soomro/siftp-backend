@@ -19,9 +19,7 @@
     "multer": "1.4.5-lts.1",
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.7",
-    "pnpm": "^9.12.3",
     "qrcode": "^1.5.4",
-    "serverless-http": "^3.2.0",
     "speakeasy": "^2.0.0"
   }
 }
