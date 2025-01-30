@@ -17,12 +17,10 @@ app.use("/v1/contact", contactRoute);
 app.use("/v1/enrollment", enrollmentRoute);
 app.post("/send-mail", async (req, res) => {
   const { email, username, query, message } = req.body;
-  await sendEmail({ email, username, query, message });
-  if (sendEmail) {
-    res.json({
-      msg: "Sent",
-    });
-  }
+  const mailSend = await sendEmail({ email, username, query, message });
+  return res.json({
+    mailSend
+  })
 });
 app.get("/", (req, res) => {
   res.end("Hello");

@@ -18,11 +18,11 @@ const sendEmail = ({ email, username, query, message }) => {
         text: `You have a new message from ${username} (${email})\n\nQuery: ${query}\n\nMessage: ${message}`  // Email body
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    const sentMail = transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             console.log('Error: ', error);
         } else {
-            return
+            return sentMail
         }
     });
 };
