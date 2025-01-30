@@ -6,7 +6,7 @@ const transporter = nodemailer.createTransport({
     secure: true,
     auth: {
         user: 'info@siftp.com',
-        pass: '=&+}#H?L*6ye'
+        pass: 'y+o-ALt7g;ZU'
     }
 });
 
@@ -28,3 +28,5 @@ const sendEmail = ({ email, username, query, message }) => {
 };
 
 module.exports = sendEmail;
+
+
