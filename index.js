@@ -14,19 +14,19 @@ app.use(express.json());
 app.use("/v1/user", userRoute);
 app.use("/v1/course", courseRoute);
 app.use("/v1/contact", contactRoute);
-app.use("/v1/enrollment",enrollmentRoute );
-app.post("/send-mail", (req,res) =>{
-  const {email, username, query, message} = req.body
-  sendEmail({email, username, query, message})
-  if(sendEmail) {
+app.use("/v1/enrollment", enrollmentRoute);
+app.post("/send-mail", async (req, res) => {
+  const { email, username, query, message } = req.body;
+  await sendEmail({ email, username, query, message });
+  if (sendEmail) {
     res.json({
-      msg: "Sent"
-    })
+      msg: "Sent",
+    });
   }
 });
-app.get('/', (req,res) => {
-  res.end("Hello")
-})
+app.get("/", (req, res) => {
+  res.end("Hello");
+});
 app.listen(process.env.PORT, () => {
   console.log("working at port.");
 });
