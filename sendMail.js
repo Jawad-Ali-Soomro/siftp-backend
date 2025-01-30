@@ -1,32 +1,34 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-    host: 'mail.siftp.com',
-    port: 465,
-    secure: true,
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: process.env.SMTP_SECURE === 'true',
     auth: {
-        user: 'info@siftp.com',
-        pass: 'y+o-ALt7g;ZU'
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
     }
 });
 
 const sendEmail = ({ email, username, query, message }) => {
     const mailOptions = {
         from: email,
-        to: 'info@siftp.com',
+        to: process.env.TO_EMAIL,
         subject: `New Query from ${username}`,
-        text: `You have a new message from ${username} (${email})\n\nQuery: ${query}\n\nMessage: ${message}`  // Email body
+        text: `You have a new message from ${username} (${email})\n\nQuery: ${query}\n\nMessage: ${message}`
     };
 
-    const sentMail = transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.log('Error: ', error);
-        } else {
-            return sentMail
-        }
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('Error: ', error);
+                reject(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+                resolve(info);
+            }
+        });
     });
 };
 
 module.exports = sendEmail;
-
-
