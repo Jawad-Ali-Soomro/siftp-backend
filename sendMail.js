@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail = ({ email, username, query, message }) => {
     const mailOptions = {
-        from: 'info@siftp.com',
+        from: email,
         to: 'info@siftp.com',
         subject: `New Query from ${username}`,
         text: `You have a new message from ${username} (${email})\n\nQuery: ${query}\n\nMessage: ${message}`  // Email body
