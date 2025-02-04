@@ -5,7 +5,7 @@ require("dotenv").config({
   path: "./_config/.env",
 });
 const cors = require("cors", {
-  origin: "https://siftp.com"
+  origin: "https://siftp.com/contact"
 });
 const { userRoute, courseRoute, enrollmentRoute } = require("./_routes");
 const contactRoute = require("./_routes/contact.routes");
